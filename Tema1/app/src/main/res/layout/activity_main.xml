@@ -4,121 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#5C1109"
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/solucion"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="6dp"
-        android:layout_marginBottom="580dp"
-        android:text="0"
-        android:textSize="60dp"
-        android:textColor="#2D132C"
-        android:gravity="center|bottom"
-        android:background="#801336"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.43"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp" />
-
-    <EditText
-        android:id="@+id/NumeroTop"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="435dp"
-        android:layout_marginLeft="6dp"
-        android:layout_marginRight="6dp"
-        android:ems="10"
-        android:inputType="numberSigned"
-        android:background="#C72C41"
-        android:textSize="36dp"
-        android:textColor="#2D132C"
-        android:text="0"
+        android:text="Hello World!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/solucion" />
-
-    <EditText
-        android:id="@+id/numeroButton"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="290dp"
-        android:layout_marginLeft="6dp"
-        android:layout_marginRight="6dp"
-        android:ems="10"
-        android:inputType="numberSigned"
-        android:background="#C72C41"
-        android:textSize="36dp"
-        android:textColor="#2D132C"
-        android:text="0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/NumeroTop" />
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="6dp"
-        android:layout_marginRight="6dp"
-        android:layout_marginBottom="10dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numeroButton">
-
-        <Button
-            android:id="@+id/btsuma"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#EE4540"
-            android:text="Sumar"
-            android:textColor="#2D132C"
-            android:textSize="25dp" />
-
-        <Button
-            android:id="@+id/btresta"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#2D132C"
-            android:backgroundTint="#EE4540"
-            android:textSize="25dp"
-            android:text="Restar" />
-
-        <Button
-            android:id="@+id/btmultiplicar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#2D132C"
-            android:backgroundTint="#EE4540"
-            android:textSize="25dp"
-            android:text="Multiplicar" />
-
-        <Button
-            android:id="@+id/btdividir"
-            android:textColor="#2D132C"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#EE4540"
-            android:textSize="25dp"
-            android:text="dividir" />
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
