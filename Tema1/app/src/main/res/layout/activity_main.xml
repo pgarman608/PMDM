@@ -15,6 +15,7 @@
         android:layout_marginRight="6dp"
         android:layout_marginBottom="75dp"
         android:text=""
+        android:background="#000000"
         app:layout_constraintBottom_toTopOf="@+id/tvRed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -72,18 +73,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="104dp"
-        android:text="Rojo:"
+        android:text="Rojo: 0"
         android:textColor="#FF0000"
         app:layout_constraintBottom_toTopOf="@+id/tvGreen"
-        app:layout_constraintStart_toStartOf="@+id/sbRed"
-        app:layout_constraintTop_toBottomOf="@+id/tvChangeColor" />
+        app:layout_constraintTop_toBottomOf="@+id/tvChangeColor"
+        tools:layout_editor_absoluteX="6dp" />
 
     <TextView
         android:id="@+id/tvGreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="83dp"
-        android:text="Verde:"
+        android:text="Verde: 0"
         android:textColor="#00FF00"
         app:layout_constraintBottom_toTopOf="@+id/tvBlue"
         app:layout_constraintStart_toStartOf="@+id/sbGreen"
@@ -94,10 +95,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="101dp"
-        android:text="Azul:"
+        android:text="Azul: 0"
         android:textColor="#0000FF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/sbBlue"
         app:layout_constraintTop_toBottomOf="@+id/tvGreen" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
