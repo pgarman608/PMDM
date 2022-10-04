@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
@@ -8,7 +9,7 @@ import android.os.Bundle;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
     private TextView cColor;
     private TextView tvRed;
     private TextView tvGreen;
@@ -42,60 +43,15 @@ public class MainActivity extends AppCompatActivity {
         sbGreen.setMin(0);
         sbBlue.setMax(255);
         sbBlue.setMin(0);
-        sbRed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                progressColor(seekBar, i, b);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-        sbGreen.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                progressColor(seekBar, i, b);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-        sbBlue.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                progressColor(seekBar, i, b);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
+        sbRed.setOnSeekBarChangeListener(this);
+        sbGreen.setOnSeekBarChangeListener(this);
+        sbBlue.setOnSeekBarChangeListener(this);
     }
     private int rojo = 0;
     private int azul = 0;
     private int verde = 0;
-    private void progressColor(SeekBar seekBar, int i, boolean b){
-
+    @Override
+    public void onProgressChanged(@NonNull SeekBar seekBar, int i, boolean b) {
         switch (seekBar.getId()){
             case R.id.sbRed:
                 seekBar.setProgress(i);
@@ -116,5 +72,15 @@ public class MainActivity extends AppCompatActivity {
                 cColor.setBackgroundColor(Color.rgb(rojo, verde,azul));
                 break;
         }
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
     }
 }
