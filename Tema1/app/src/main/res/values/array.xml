@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="privincias">
+        <item>Granada</item>
+        <item>Almeria</item>
+        <item>Jaen</item>
+    </string-array>
+</resources>
