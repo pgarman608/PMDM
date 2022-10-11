@@ -4,16 +4,15 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -39,10 +38,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         bt_A1 = (Button) findViewById(R.id.button3);
         bt_A2 = (Button) findViewById(R.id.button2);
-        bt_A3 = (Button) findViewById(R.id.button);
+        bt_A3 = (Button) findViewById(R.id.button1);
         bt_A1.setOnClickListener(this);
         bt_A2.setOnClickListener(this);
-        bt_A2.setOnClickListener(this);
+        bt_A3.setOnClickListener(this);
 
     }
     ActivityResultLauncher<Intent> mStartForResult = registerForActivityResult(
@@ -50,8 +49,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
-                    Log.d("main","onActivityResult");
-                    Log.d("main", result.getResultCode()+"");
+                    Intent iexist = result.getData();
+                    Bundle bun1 = iexist.getExtras();
+                    Log.d("main",iexist.getStringExtra("result"));
+                    switch (result.getResultCode()){
+                        case 1:
+                            tv_A1.setText(iexist.getStringExtra("result"));
+                            break;
+                        case 2:
+                            tv_A2.setText(bun1.getString("result"));
+                            break;
+                        case 3:
+                            tv_A3.setText(bun1.getString("result"));
+                            break;
+                        default:
+                            Toast.makeText(null,"Error de activity",Toast.LENGTH_LONG);
+                    }
                 }
             });
     @Override
@@ -64,11 +77,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.button2:
                 Intent i2 = new Intent(MainActivity.this, Activity2.class);
-                startActivity(i2);
+                mStartForResult.launch(i2);
                 break;
-            case R.id.button:
+            case R.id.button1:
+                Log.d("main","PRueba1");
                 Intent i3 = new Intent(MainActivity.this, Activity3.class);
-                startActivity(i3);
+                mStartForResult.launch(i3);
                 break;
 
         }
