@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,15 +25,22 @@ import java.util.List;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerHolder> {
 
     List<Videojuegos> listGames;
+    View.OnClickListener listener;
+    RecyclerHolder recyclerHolder;
+    public void setOnClickListener(View.OnClickListener listener){
+        this.listener = listener;
+    }
 
     public RecyclerAdapter(List<Videojuegos> listMovies) {
         this.listGames = listMovies;
     }
     @NonNull
     @Override
+
     public RecyclerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_items,parent, false);
-        RecyclerHolder recyclerHolder = new RecyclerHolder(view);
+        recyclerHolder = new RecyclerHolder(view);
+        view.setOnClickListener(listener);
         return recyclerHolder;
     }
 
@@ -44,23 +52,25 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         holder.tvDescripcion.setText(videojuegos.getDescripcion());
     }
 
+    public TextView getTvTitel(){
+        return recyclerHolder.tvTitle;
+    }
+
     @Override
     public int getItemCount() {
         return listGames.size();
     }
     public class RecyclerHolder extends ViewHolder{
         ImageView ivJuego;
-        TextView  tvTitle;
+        public TextView  tvTitle;
         TextView  tvDescripcion;
         public RecyclerHolder(@NonNull View itemView) {
             super(itemView);
-
             ivJuego  = (ImageView) itemView.findViewById(R.id.ivVideojuegos);
             tvTitle = (TextView)  itemView.findViewById(R.id.tvTitulo);
             tvDescripcion = (TextView)  itemView.findViewById(R.id.tvDescripcion);
-
-
         }
+
     }
 }
 
