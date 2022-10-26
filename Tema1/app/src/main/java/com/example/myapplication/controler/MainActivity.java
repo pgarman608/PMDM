@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
         ra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), ra.getTvTitel().getText(),Toast.LENGTH_SHORT).show();
+                int item = rv.getChildAdapterPosition(view);
+                Toast.makeText(view.getContext(), getListGames().get(item).getTitulo(),Toast.LENGTH_SHORT).show();
             }
         });
     }
