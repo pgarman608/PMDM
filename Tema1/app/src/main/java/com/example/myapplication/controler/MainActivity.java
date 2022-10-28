@@ -1,10 +1,14 @@
 package com.example.myapplication.controler;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.LinearLayout;
@@ -33,13 +37,30 @@ public class MainActivity extends AppCompatActivity {
 
         rv.setAdapter(ra);
         rv.setLayoutManager(la1);
-        ra.setOnClickListener(new View.OnClickListener() {
+
+        ra.setContextMenuListener(new View.OnCreateContextMenuListener() {
             @Override
-            public void onClick(View view) {
-                int item = rv.getChildAdapterPosition(view);
-                Toast.makeText(view.getContext(), getListGames().get(item).getTitulo(),Toast.LENGTH_SHORT).show();
+            public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+                //Crearemos un menu flotante con getMenuInflater().inflater(r,menu)
+                getMenuInflater().inflate(R.menu.menu_flotante,menu);
+                //Le pondremos una cabezera
+                menu.setHeaderTitle("Menu Flotante");
             }
         });
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        createToast("Hola");
+        return true;
+    }
+
+    public void onContextMenuClosed(@NonNull Menu menu) {
+
+    }
+
+    private void createToast(String msg){
+        Toast.makeText(MainActivity.this,msg,Toast.LENGTH_SHORT).show();
     }
 
     private List<Videojuegos> getListGames() {

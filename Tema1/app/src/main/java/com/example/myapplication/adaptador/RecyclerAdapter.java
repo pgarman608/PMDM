@@ -27,8 +27,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     List<Videojuegos> listGames;
     View.OnClickListener listener;
     RecyclerHolder recyclerHolder;
+    View.OnCreateContextMenuListener contextMenuListener;
     public void setOnClickListener(View.OnClickListener listener){
         this.listener = listener;
+    }
+
+
+    public void setContextMenuListener(View.OnCreateContextMenuListener contextMenuListener) {
+        this.contextMenuListener = contextMenuListener;
     }
 
     public RecyclerAdapter(List<Videojuegos> listMovies) {
@@ -41,6 +47,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_items,parent, false);
         recyclerHolder = new RecyclerHolder(view);
         view.setOnClickListener(listener);
+        view.setOnCreateContextMenuListener(contextMenuListener);
+
         return recyclerHolder;
     }
 
