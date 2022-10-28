@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mAdd"
+        android:icon="@drawable/add"
+        android:title="Anadir"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/mDelete"
+        android:icon="@drawable/eliminar2"
+        android:title="Eliminar"
+        app:showAsAction="always" />
+</menu>
