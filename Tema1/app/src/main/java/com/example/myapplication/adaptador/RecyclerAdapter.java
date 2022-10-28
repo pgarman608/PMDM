@@ -27,8 +27,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     List<Videojuegos> listGames;
     View.OnClickListener listener;
     RecyclerHolder recyclerHolder;
+    View.OnLongClickListener longClickL;
     public void setOnClickListener(View.OnClickListener listener){
         this.listener = listener;
+    }
+
+    public void setLongClickL(View.OnLongClickListener longClickL) {
+        this.longClickL = longClickL;
     }
 
     public RecyclerAdapter(List<Videojuegos> listMovies) {
@@ -41,7 +46,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_items,parent, false);
         recyclerHolder = new RecyclerHolder(view);
         view.setOnClickListener(listener);
+        view.setOnLongClickListener(longClickL);
         return recyclerHolder;
+    }
+
+    public void setListGames(List<Videojuegos> listGames) {
+        this.listGames = listGames;
     }
 
     @Override
