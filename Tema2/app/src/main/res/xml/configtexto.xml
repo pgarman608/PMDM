@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory android:title="Configuracion del texto">
-
-        <EditTextPreference
-            android:defaultValue="Default value"
-            android:key="edit_text_preference_1"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
+        <ListPreference
+            android:defaultValue="14"
+            android:entries="@array/tamanios"
+            android:entryValues="@array/tamanios"
+            android:key="itemTamanio"
+            android:title="List preference"
+            app:title="Tamaño de letra" />
+        <ListPreference
+            android:defaultValue="Negro"
+            android:entries="@array/colores"
+            android:entryValues="@array/colores"
+            android:key="itemColorFondo"
             android:title="Color del fondo del texto" />
-        <EditTextPreference
-            android:defaultValue="Default value"
-            android:key="edit_text_preference_1"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
+        <ListPreference
+            android:defaultValue="Negro"
+            android:entries="@array/colores"
+            android:entryValues="@array/colores"
+            android:key="itemColorTexto"
             android:title="Color del texto" />
-        <EditTextPreference
-            android:defaultValue="Default value"
-            android:key="edit_text_preference_1"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            android:title="Tamaño del texto" />
     </PreferenceCategory>
 </PreferenceScreen>

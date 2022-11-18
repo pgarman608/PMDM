@@ -1,6 +1,7 @@
 package com.example.myapplication.fragmentos;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.preference.PreferenceFragmentCompat;
 
