@@ -6,12 +6,15 @@ import androidx.appcompat.view.ActionMode;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
 
@@ -76,18 +79,27 @@ public class MainActivity extends AppCompatActivity {
          */
         SharedPreferences informacion = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         // Una vez que tengamos acceso a la informacion compartida accederemos a ella con una clave
-        String preferences;
-        preferences = informacion.getString("itemColorFondo","Negro");
-        /**String colorFondo = informacion.getString("itemColorFondo","Negro");
-         * String colorLetra = informacion.getString("itemColorTexto","Negro");
-        String tamanioLetra = informacion.getString("itemTamanio",""+14);
-        leHolaMundo.setForeground(new ColorDrawable(Color.rgb(getCTexto(colorFondo)[0],getCTexto(colorFondo)[1],getCTexto(colorFondo)[2])));
-        leHolaMundo.setBackground(new ColorDrawable(Color.rgb(getCTexto(colorLetra)[0],getCTexto(colorLetra)[1],getCTexto(colorLetra)[2])));
-        leHolaMundo.setTextSize(Integer.valueOf(tamanioLetra));*/
+
+        //Tips no usar integerarray para los listPreferences
+        //Pasar a objetos por si da un error de HashSet
+
+        Object colorTexto = informacion.getString("preferenceColorLetra","Blanco");
+        String strColorTexto = colorTexto.toString();
+        Object colorFondo = informacion.getString("preferenceColorFondo","Negro");
+        String strColorFondo = colorFondo.toString();
+        Object tamanio = informacion.getString("preferenceTamanio","14");
+        leHolaMundo.setTextColor(Color.rgb(getCTexto(strColorTexto)[0],getCTexto(strColorTexto)[1],getCTexto(strColorTexto)[2]));
+        leHolaMundo.setBackgroundColor(Color.rgb(getCTexto(strColorFondo)[0],getCTexto(strColorFondo)[1],getCTexto(strColorFondo)[2]));
+        leHolaMundo.setTextSize(Float.parseFloat(tamanio.toString()));
     }
     private int[] getCTexto(String color){
         int[] colores = new int[3];
         switch (color){
+            case "Blanco":
+                colores[0] = 255;
+                colores[1] = 255;
+                colores[2] = 255;
+                break;
             case "Negro":
                 colores[0] = 0;
                 colores[1] = 0;

@@ -7,20 +7,19 @@
             android:defaultValue="14"
             android:entries="@array/tamanios"
             android:entryValues="@array/tamanios"
-            android:key="itemTamanio"
-            android:title="List preference"
-            app:title="Tamaño de letra" />
+            android:key="preferenceTamanio"
+            android:title="Tamaño de la letra" />
         <ListPreference
-            android:defaultValue="Negro"
+            android:defaultValue="Blanco"
             android:entries="@array/colores"
             android:entryValues="@array/colores"
-            android:key="itemColorFondo"
+            android:key="preferenceColorFondo"
             android:title="Color del fondo del texto" />
         <ListPreference
-            android:defaultValue="Negro"
+            android:defaultValue="Blanco"
             android:entries="@array/colores"
             android:entryValues="@array/colores"
-            android:key="itemColorTexto"
+            android:key="preferenceColorLetra"
             android:title="Color del texto" />
     </PreferenceCategory>
 </PreferenceScreen>

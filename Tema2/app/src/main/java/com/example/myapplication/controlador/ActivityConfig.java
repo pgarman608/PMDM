@@ -2,6 +2,7 @@ package com.example.myapplication.controlador;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,14 +26,12 @@ public class ActivityConfig extends AppCompatActivity {
         //Crearemos el Fragmento con las preferencias
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.configcontenedor, new SettingFragmentos())   //Todo 2.1 Es en esta línea donde se reemplaza el contenedor por una instancia de la clase SettingFragment
-                .commit();                                                  //Todo --> cuya clase construye las preferencias como se ha comentado en el punto 1.
-
-        //Todo 3. Esto es opcional, pero se puede activar el icono de "Volver"(flecha atrás) para
-        // ello debemos de acceder al action bar creado por Android por defecto.
+                .replace(R.id.configcontenedor, new SettingFragmentos())
+                .commit();
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
-            actionBar.setDisplayHomeAsUpEnabled(true); //Todo 3.1 si existe (no es nulo) mostramos el botón hacia atrás.
+
+            actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
     }
