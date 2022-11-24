@@ -11,7 +11,7 @@
         android:id="@+id/vwLogin"
         android:layout_width="302dp"
         android:layout_height="294dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="155dp"
         android:layout_marginBottom="100dp"
         android:background="@drawable/layoutviewlog"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -42,6 +42,7 @@
         android:backgroundTint="#006ca0"
         android:ems="10"
         android:inputType="textPersonName"
+        android:minHeight="48dp"
         android:text="Nombre"
         android:textColor="#006ca0"
         android:textSize="16sp"
@@ -67,7 +68,8 @@
         app:layout_constraintEnd_toEndOf="@+id/vwLogin"
         app:layout_constraintStart_toStartOf="@+id/vwLogin"
         app:layout_constraintTop_toBottomOf="@+id/etNombreLogin"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintVertical_bias="0.25"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <TextView
         android:id="@+id/tvRegistrar"
@@ -81,7 +83,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vwLogin"
-        app:layout_constraintVertical_bias="0.20" />
+        app:layout_constraintVertical_bias="0.28" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLogin"
@@ -94,6 +96,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvRegistrar" />
+        app:layout_constraintTop_toBottomOf="@+id/tvRegistrar"
+        app:layout_constraintVertical_bias="0.36" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="157dp"
+        android:layout_height="161dp"
+        app:layout_constraintBottom_toTopOf="@+id/vwLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/iascene" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
