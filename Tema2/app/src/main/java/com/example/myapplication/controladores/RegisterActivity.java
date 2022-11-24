@@ -38,7 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
         tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentLogin1 = new Intent("");
+                Intent intentLogin1 = new Intent();
                 intentLogin1.putExtra("result","");
                 setResult(Activity.RESULT_CANCELED,intentLogin1);
                 finish();
