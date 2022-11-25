@@ -3,6 +3,8 @@ package com.example.myapplication.modelos;
 public class IAImagen {
 
     private String nombre_Cliente;
+    private String nombre_Imagen;
+    private String descripcion;
     private String url;
 
     public IAImagen(){
@@ -11,6 +13,8 @@ public class IAImagen {
 
     public IAImagen(String nombre_Cliente,String url){
         this.nombre_Cliente = nombre_Cliente;
+        this.nombre_Imagen = nombre_Cliente;
+        this.descripcion = descripcion;
         this.url = url;
     }
 

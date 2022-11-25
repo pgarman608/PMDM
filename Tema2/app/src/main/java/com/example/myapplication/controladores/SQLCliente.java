@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -18,7 +19,7 @@ public class SQLCliente extends SQLiteOpenHelper {
     private static final String DB_NAME_TABLE_CLIENTE = "DB_TABLE_CLIENTE";
     private static final String DB_NAME_TABLE_IMAGENES = "DB_TABLE_IMAGENES";
 
-    private static final int VERSION = 1;
+    private static final int VERSION = 7;
 
     //Columnas de las dos tablas
 
@@ -26,6 +27,8 @@ public class SQLCliente extends SQLiteOpenHelper {
     private static final String COL_CLIENTE_CONTRASENIA = "CONTRASENIA";
 
     private static final String COL_IMAGENES_NOMBRE_CLIENTE = "NOMBRE_CLIENTE";
+    private static final String COL_IMAGENES_NOMBRE = "NOMBRE_IMAGEN" ;
+    private static final String COL_IMAGENES_DESCRIPCION = "DESCRIPCION";
     private static final String COL_IMAGENES_URL = "URL_IMAGEN";
 
     private Context context;
@@ -38,19 +41,17 @@ public class SQLCliente extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String CREATE_TABLE_CLIENTE = "CREATE TABLE " + DB_NAME_TABLE_CLIENTE +"(" + COL_CLIENTE_NOMBRE
-                + "TEXT," + COL_CLIENTE_CONTRASENIA + "TEXT);";
-        String CREATE_TABLE_IMAGENES = "CREATE TABLE " + DB_NAME_TABLE_IMAGENES +"(" + COL_IMAGENES_NOMBRE_CLIENTE
-                + "TEXT," + COL_IMAGENES_URL+ "TEXT," +
-                " FOREIGN KEY("+ COL_IMAGENES_NOMBRE_CLIENTE+") REFERENCES " + DB_NAME_TABLE_CLIENTE + "(" + COL_CLIENTE_NOMBRE +"));";
+        String CREATE_TABLE_CLIENTE = "CREATE TABLE " + DB_NAME_TABLE_CLIENTE +" ( " + COL_CLIENTE_NOMBRE
+                + " TEXT primary key," + COL_CLIENTE_CONTRASENIA + " TEXT );";
+        String CREATE_TABLE_IMAGENES = "CREATE TABLE " + DB_NAME_TABLE_IMAGENES +" ( " + COL_IMAGENES_NOMBRE_CLIENTE
+                + " TEXT," + COL_IMAGENES_NOMBRE+ " TEXT," + COL_IMAGENES_DESCRIPCION + " TEXT," + COL_IMAGENES_URL+ " TEXT);";
 
         sqLiteDatabase.execSQL(CREATE_TABLE_CLIENTE);
         sqLiteDatabase.execSQL(CREATE_TABLE_IMAGENES);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
     }
 
     public long insertarCliente(Cliente cliente){
@@ -88,9 +89,11 @@ public class SQLCliente extends SQLiteOpenHelper {
     public long existeCliente(Cliente cliente){
         int error = 0;
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * FROM " + DB_NAME_TABLE_CLIENTE
-                + " WHERE " + COL_CLIENTE_NOMBRE + " = " + cliente.getNombre() + " AND " + COL_CLIENTE_CONTRASENIA + " = " + cliente.getContrasena();
-        Cursor cursor = db.rawQuery(query,null);
+
+        String[] columnas = new String[]{COL_CLIENTE_NOMBRE};
+        String[] where = new String[]{cliente.getNombre()};
+
+        Cursor cursor = db.query(DB_NAME_TABLE_CLIENTE,columnas,"NOMBRE = ?",where,null,null,null);;
 
         error = cursor.getCount();
 

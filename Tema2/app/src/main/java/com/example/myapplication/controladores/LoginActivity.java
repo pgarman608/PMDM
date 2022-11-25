@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.example.myapplication.modelos.Cliente;
+import com.prathameshmore.toastylibrary.Toasty;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private TextView tvRegister;
@@ -21,10 +23,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText etContrasena;
     private Button btLogin;
     public final static int REGISTERINT = 1;
+    public static Cliente clienteLog;
+    private Toasty toasty;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        toasty = new Toasty(this);
         getWindow().setStatusBarColor(Color.parseColor("#FCC2FC"));
         getSupportActionBar().hide();
 
@@ -34,6 +39,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btLogin = (Button) findViewById(R.id.btnLogin);
 
         tvRegister.setOnClickListener(this);
+        btLogin.setOnClickListener(this);
     }
 
     @Override
@@ -48,13 +54,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.tvRegistrar:
-                Intent intentRegister = new Intent(LoginActivity.this,RegisterActivity.class);
-                startActivityForResult(intentRegister,1);
-                break;
-            case R.id.btnLogin:
-                break;
+        try{
+            switch (view.getId()){
+                case R.id.tvRegistrar:
+                    Intent intentRegister = new Intent(LoginActivity.this,RegisterActivity.class);
+                    startActivityForResult(intentRegister,1);
+                    break;
+                case R.id.btnLogin:
+                    clienteLog = new Cliente(etNombre.getText().toString(),etContrasena.getText().toString());
+                    if(clienteLog.isEmpty() == 0){
+                        SQLCliente sqlCliente = new SQLCliente(this);
+                        toasty.dangerToasty(this,""+sqlCliente.existeCliente(clienteLog),Toasty.LENGTH_SHORT,Toasty.CENTER);
+                        if(sqlCliente.existeCliente(clienteLog)!=0) {
+                            Intent intentLogin = new Intent(LoginActivity.this,ListActivity.class);
+                            startActivity(intentLogin);
+                        }else{
+                            toasty.dangerToasty(this,"No existe el usuario",Toasty.LENGTH_SHORT,Toasty.CENTER);
+                        }
+                    }else{
+                        toasty.dangerToasty(this,"Introduce datos en los campos", Toasty.LENGTH_SHORT,Toasty.CENTER);
+                    }
+                    break;
+            }
+        }catch(Exception ex){
+            toasty.dangerToasty(this,ex.getMessage(),Toasty.LENGTH_SHORT,Toasty.CENTER);
         }
+
     }
 }
