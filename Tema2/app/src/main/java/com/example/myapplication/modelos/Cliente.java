@@ -1,8 +1,6 @@
 package com.example.myapplication.modelos;
 
-import java.io.Serializable;
-
-public class Cliente implements Serializable {
+public class Cliente{
     private String nombre;
     private String contrasena;
 
@@ -34,5 +32,13 @@ public class Cliente implements Serializable {
     @Override
     public String toString() {
         return this.nombre + "-" + this.contrasena;
+    }
+
+    public int isEmpty(){
+        int error = 0;
+        if (this.contrasena.trim().isEmpty() && this.contrasena.trim().isEmpty()){
+            error =-1;
+        }
+        return error;
     }
 }

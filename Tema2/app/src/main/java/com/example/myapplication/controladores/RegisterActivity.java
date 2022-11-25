@@ -14,15 +14,17 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+import com.example.myapplication.modelos.Cliente;
 
 import org.w3c.dom.Text;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
     private TextView tvLogin;
     private EditText etNombre;
     private EditText etContrasena;
     private Button btRegister;
 
+    private SQLCliente sqlCliente;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,14 +37,34 @@ public class RegisterActivity extends AppCompatActivity {
         etContrasena = (EditText) findViewById(R.id.etContrasenaRegister);
         btRegister = (Button) findViewById(R.id.btnRegister);
 
-        tvLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        sqlCliente = new SQLCliente(this);
+
+        tvLogin.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.tvLogin:
                 Intent intentLogin1 = new Intent();
                 intentLogin1.putExtra("result","");
                 setResult(Activity.RESULT_CANCELED,intentLogin1);
                 finish();
-            }
-        });
+                break;
+            case R.id.btnRegister:
+                Cliente cliente = new Cliente(etNombre.getText().toString(),etContrasena.getText().toString());
+                if (cliente.isEmpty() == 0){
+                    if (sqlCliente.existeCliente(cliente) == 1){
+
+                    }else{
+
+                    }
+                }else{
+
+                }
+                break;
+        }
     }
+
 }

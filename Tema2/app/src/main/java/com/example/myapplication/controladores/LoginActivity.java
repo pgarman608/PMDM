@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.example.myapplication.R;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private TextView tvRegister;
     private EditText etNombre;
     private EditText etContrasena;
@@ -33,13 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         etContrasena = (EditText) findViewById(R.id.etContrasenaLogin);
         btLogin = (Button) findViewById(R.id.btnLogin);
 
-        tvRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentRegister = new Intent(LoginActivity.this,RegisterActivity.class);
-                startActivityForResult(intentRegister,1);
-            }
-        });
+        tvRegister.setOnClickListener(this);
     }
 
     @Override
@@ -49,6 +43,18 @@ public class LoginActivity extends AppCompatActivity {
             String[] cliente = data.getStringExtra("result").split("-");
             etNombre.setText(cliente[0]);
             etContrasena.setText(cliente[1]);
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.tvRegistrar:
+                Intent intentRegister = new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivityForResult(intentRegister,1);
+                break;
+            case R.id.btnLogin:
+                break;
         }
     }
 }
