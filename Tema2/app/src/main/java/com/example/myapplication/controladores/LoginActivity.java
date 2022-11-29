@@ -79,6 +79,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }catch(Exception ex){
             toasty.dangerToasty(this,ex.getMessage(),Toasty.LENGTH_SHORT,Toasty.CENTER);
         }
-
     }
 }
