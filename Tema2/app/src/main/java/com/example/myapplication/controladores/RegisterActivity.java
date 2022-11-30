@@ -35,6 +35,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         toasty = new Toasty(RegisterActivity.this);
         getWindow().setStatusBarColor(Color.parseColor("#D9EE66"));
         getSupportActionBar().hide();
+        getWindow().setNavigationBarColor(Color.parseColor("#D9EE66"));
+
 
         tvLogin = (TextView) findViewById(R.id.tvLogin);
         etNombre = (EditText) findViewById(R.id.etNombreRegister);

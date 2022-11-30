@@ -5,12 +5,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.example.myapplication.modelos.Cliente;
 import com.example.myapplication.modelos.IAImagen;
+
+import java.util.ArrayList;
 
 public class SQLCliente extends SQLiteOpenHelper {
 
@@ -101,5 +104,23 @@ public class SQLCliente extends SQLiteOpenHelper {
         cursor.close();
 
         return error;
+    }
+
+    //Metodo pesado
+
+    public ArrayList<IAImagen> imagenesUsuario(String nombre){
+        ArrayList<IAImagen> imagenes = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columnas = new String[]{COL_IMAGENES_NOMBRE,COL_IMAGENES_DESCRIPCION,COL_IMAGENES_URL};
+        String[] where = new String[]{nombre};
+
+        Cursor cursor = db.query(DB_NAME_TABLE_IMAGENES,columnas,"NOMBRE_CLIENTE = ? ",where,null,null,null,null);
+        if (cursor.moveToNext()){
+            do {
+                IAImagen iaImagen = new IAImagen("Cliente",cursor.getString(0),cursor.getString(1),cursor.getString(2));
+                imagenes.add(iaImagen);
+            }while (cursor.moveToNext());
+        }
+        return imagenes;
     }
 }

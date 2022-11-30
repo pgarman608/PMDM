@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.app.Activity;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.modelos.IAImagen;
 
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
+import com.bumptech.glide.Glide;
 import java.util.List;
 
 public class ReciclerAdapterImag extends RecyclerView.Adapter<ReciclerAdapterImag.ImageHolder> {
 
-    List<IAImagen> imagenes;
+    private List<IAImagen> imagenes;
+    private CircularProgressDrawable progresoDrawableImage;
+    private View view;
     public List<IAImagen> getImagenes(){
         return imagenes;
     }
@@ -24,11 +29,16 @@ public class ReciclerAdapterImag extends RecyclerView.Adapter<ReciclerAdapterIma
         this.imagenes = imagenes;
     }
 
+    public ReciclerAdapterImag(List<IAImagen> imagenes){
+        this.imagenes = imagenes;
+    }
     @NonNull
     @Override
     public ImageHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_list_item,parent,false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_list_item,parent,false);
         ImageHolder imageHolder = new ImageHolder(view);
+
+        //Circulo de carga
 
         return imageHolder;
     }
@@ -36,7 +46,11 @@ public class ReciclerAdapterImag extends RecyclerView.Adapter<ReciclerAdapterIma
     @Override
     public void onBindViewHolder(@NonNull ImageHolder holder, int position) {
         IAImagen iaImagen = imagenes.get(position);
-        holder.iaImagen.setImageResource(iaImagen.getUrl());
+        Glide.with(view)
+                .load(iaImagen.getUrl())
+                .placeholder(R.drawable.iascene)
+                .error(R.mipmap.ic_launcher)
+                .into(holder.iaImagen);
     }
 
     @Override
@@ -50,7 +64,7 @@ public class ReciclerAdapterImag extends RecyclerView.Adapter<ReciclerAdapterIma
 
         public ImageHolder(@NonNull View itemView) {
             super(itemView);
-            iaImagen = (ImageView) itemView.findViewById(R.id.imageView);
+            iaImagen = (ImageView) itemView.findViewById(R.id.ivItem);
         }
     }
 }

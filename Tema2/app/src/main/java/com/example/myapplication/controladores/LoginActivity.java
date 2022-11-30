@@ -25,6 +25,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public final static int REGISTERINT = 1;
     public static Cliente clienteLog;
     private Toasty toasty;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +33,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         toasty = new Toasty(this);
         getWindow().setStatusBarColor(Color.parseColor("#FCC2FC"));
         getSupportActionBar().hide();
+        getWindow().setNavigationBarColor(Color.parseColor("#FCC2FC"));
 
         tvRegister = (TextView) findViewById(R.id.tvRegistrar);
         etNombre = (EditText) findViewById(R.id.etNombreLogin);
