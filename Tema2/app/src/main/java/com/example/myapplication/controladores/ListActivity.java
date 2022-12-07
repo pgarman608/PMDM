@@ -1,5 +1,8 @@
 package com.example.myapplication.controladores;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -7,8 +10,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.text.Html;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -59,6 +65,13 @@ public class ListActivity extends AppCompatActivity {
         GridLayoutManager matrizlayout = new GridLayoutManager(this,3);
         recyclerView.setLayoutManager(matrizlayout);
         recyclerView.setAdapter(imageHolder);
+
+        imageHolder.setClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                registerForContextMenu(view);
+            }
+        });
     }
 
     private void rellenarArray(){
@@ -78,6 +91,12 @@ public class ListActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.menu_float_list,menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
         switch (itemId){
@@ -87,5 +106,15 @@ public class ListActivity extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == ADD){
+            rellenarArray();
+            imageHolder.setImagenes(imagenes);
+            recyclerView.setAdapter(imageHolder);
+        }
     }
 }

@@ -21,6 +21,12 @@ public class ReciclerAdapterImag extends RecyclerView.Adapter<ReciclerAdapterIma
     private List<IAImagen> imagenes;
     private CircularProgressDrawable progresoDrawableImage;
     private View view;
+    private View.OnClickListener clickListener;
+
+    public void setClickListener(View.OnClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
     public List<IAImagen> getImagenes(){
         return imagenes;
     }
@@ -39,6 +45,8 @@ public class ReciclerAdapterImag extends RecyclerView.Adapter<ReciclerAdapterIma
         ImageHolder imageHolder = new ImageHolder(view);
 
         //Circulo de carga
+
+        view.setOnClickListener(clickListener);
 
         return imageHolder;
     }

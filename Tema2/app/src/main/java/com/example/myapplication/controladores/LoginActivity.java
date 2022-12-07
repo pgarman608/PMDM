@@ -56,30 +56,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        try{
-            switch (view.getId()){
+        try {
+            switch (view.getId()) {
                 case R.id.tvRegistrar:
-                    Intent intentRegister = new Intent(LoginActivity.this,RegisterActivity.class);
-                    startActivityForResult(intentRegister,1);
+                    Intent intentRegister = new Intent(LoginActivity.this, RegisterActivity.class);
+                    startActivityForResult(intentRegister, 1);
                     break;
                 case R.id.btnLogin:
-                    clienteLog = new Cliente(etNombre.getText().toString(),etContrasena.getText().toString());
-                    if(clienteLog.isEmpty() == 0){
+                    clienteLog = new Cliente(etNombre.getText().toString(), etContrasena.getText().toString());
+                    if (clienteLog.isEmpty() == 0) {
                         SQLCliente sqlCliente = new SQLCliente(this);
-                        toasty.dangerToasty(this,""+sqlCliente.existeCliente(clienteLog),Toasty.LENGTH_SHORT,Toasty.CENTER);
-                        if(sqlCliente.existeCliente(clienteLog)!=0) {
-                            Intent intentLogin = new Intent(LoginActivity.this,ListActivity.class);
+                        if (sqlCliente.existeCliente(clienteLog) != 0) {
+                            Intent intentLogin = new Intent(LoginActivity.this, ListActivity.class);
                             startActivity(intentLogin);
-                        }else{
-                            toasty.dangerToasty(this,"No existe el usuario",Toasty.LENGTH_SHORT,Toasty.CENTER);
+                        } else {
+                            toasty.dangerToasty(this, "No existe el usuario", Toasty.LENGTH_SHORT, Toasty.CENTER);
                         }
-                    }else{
-                        toasty.dangerToasty(this,"Introduce datos en los campos", Toasty.LENGTH_SHORT,Toasty.CENTER);
+                    } else {
+                        toasty.dangerToasty(this, "Introduce datos en los campos", Toasty.LENGTH_SHORT, Toasty.CENTER);
                     }
                     break;
             }
-        }catch(Exception ex){
-            toasty.dangerToasty(this,ex.getMessage(),Toasty.LENGTH_SHORT,Toasty.CENTER);
+        } catch (Exception ex) {
+            toasty.dangerToasty(this, ex.getMessage(), Toasty.LENGTH_SHORT, Toasty.CENTER);
         }
     }
 }

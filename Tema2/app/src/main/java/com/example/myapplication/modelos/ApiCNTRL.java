@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.util.Log;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -23,7 +25,7 @@ public class ApiCNTRL {
     private JSONArray arrayjson;
     private HttpURLConnection httpurl;
 
-    public static void generarPrediccion(String msg){
+    public static String generarPrediccion(String msg){
         String content=null;
         HttpURLConnection httpConn = null;
         try {
@@ -33,15 +35,33 @@ public class ApiCNTRL {
             httpConn.setRequestProperty("Content-Type", "application/json");
             httpConn.setRequestProperty("Accept", "application/json");
             if (httpConn.getResponseCode() == HttpURLConnection.HTTP_OK){
-
+                StringBuilder sb = new StringBuilder();
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader( httpConn.getInputStream() ));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line);
+                }
+                content = sb.toString();
+                reader.close();
             }
-
             Log.i(TAG, "Termina");
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
             if( httpConn != null ) httpConn.disconnect();
         }
-
+        return content;
+    }
+    public static String getURLImage(String JSON){
+        String url=null;
+        try {
+            JSONObject jsonObjeto = new JSONObject(JSON);
+            JSONArray imagenes = jsonObjeto.getJSONArray("images");
+            url = imagenes.getJSONObject(0).getString("src");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return url;
     }
 }
