@@ -1,5 +1,6 @@
 package com.example.myapplication.controladores;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -7,8 +8,10 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.text.Html;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +31,9 @@ public class ListActivity extends AppCompatActivity {
     private ReciclerAdapterImag imageHolder;
 
     private ArrayList<IAImagen> imagenes;
+
+    public static final int ADD = 1;
+    public static final int MOD = 2;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,4 +77,15 @@ public class ListActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+        switch (itemId){
+            case R.id.btnMenuAdd:
+                Intent intent = new Intent(ListActivity.this,AddActivity.class);
+                startActivityForResult(intent,ADD);
+                break;
+        }
+        return true;
+    }
 }

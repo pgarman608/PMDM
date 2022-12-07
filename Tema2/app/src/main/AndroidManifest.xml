@@ -27,6 +27,7 @@
         </activity>
         <activity android:name=".controladores.RegisterActivity"/>
         <activity android:name=".controladores.ListActivity"/>
+        <activity android:name=".controladores.AddActivity"/>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
