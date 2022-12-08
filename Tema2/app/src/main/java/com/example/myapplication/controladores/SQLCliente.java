@@ -1,10 +1,14 @@
 package com.example.myapplication.controladores;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -22,7 +26,7 @@ public class SQLCliente extends SQLiteOpenHelper {
     private static final String DB_NAME_TABLE_CLIENTE = "DB_TABLE_CLIENTE";
     private static final String DB_NAME_TABLE_IMAGENES = "DB_TABLE_IMAGENES";
 
-    private static final int VERSION = 7;
+    private static final int VERSION = 10;
 
     //Columnas de las dos tablas
 
@@ -30,6 +34,7 @@ public class SQLCliente extends SQLiteOpenHelper {
     private static final String COL_CLIENTE_CONTRASENIA = "CONTRASENIA";
 
     private static final String COL_IMAGENES_NOMBRE_CLIENTE = "NOMBRE_CLIENTE";
+    private static final String COL_IMAGENES_CODIGO_IMAGEN = "CODIGO_IMAGEN";
     private static final String COL_IMAGENES_NOMBRE = "NOMBRE_IMAGEN" ;
     private static final String COL_IMAGENES_DESCRIPCION = "DESCRIPCION";
     private static final String COL_IMAGENES_URL = "URL_IMAGEN";
@@ -47,7 +52,8 @@ public class SQLCliente extends SQLiteOpenHelper {
         String CREATE_TABLE_CLIENTE = "CREATE TABLE " + DB_NAME_TABLE_CLIENTE +" ( " + COL_CLIENTE_NOMBRE
                 + " TEXT primary key," + COL_CLIENTE_CONTRASENIA + " TEXT );";
         String CREATE_TABLE_IMAGENES = "CREATE TABLE " + DB_NAME_TABLE_IMAGENES +" ( " + COL_IMAGENES_NOMBRE_CLIENTE
-                + " TEXT," + COL_IMAGENES_NOMBRE+ " TEXT," + COL_IMAGENES_DESCRIPCION + " TEXT," + COL_IMAGENES_URL+ " TEXT);";
+                + " TEXT," + COL_IMAGENES_CODIGO_IMAGEN + " TEXT," + COL_IMAGENES_NOMBRE+ " TEXT,"
+                + COL_IMAGENES_DESCRIPCION + " TEXT," + COL_IMAGENES_URL+ " TEXT);";
 
         sqLiteDatabase.execSQL(CREATE_TABLE_CLIENTE);
         sqLiteDatabase.execSQL(CREATE_TABLE_IMAGENES);
@@ -77,12 +83,15 @@ public class SQLCliente extends SQLiteOpenHelper {
         long error = -1;
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
+        ContentValues valores = new ContentValues();
 
-        values.put(COL_IMAGENES_NOMBRE_CLIENTE,iaImagen.getNombre_Cliente());
-        values.put(COL_IMAGENES_URL,iaImagen.getUrl());
+        valores.put(COL_IMAGENES_NOMBRE_CLIENTE,iaImagen.getNombre_Cliente());
+        valores.put(COL_IMAGENES_CODIGO_IMAGEN,iaImagen.getCodigo_Imagen());
+        valores.put(COL_IMAGENES_NOMBRE,iaImagen.getNombre_Imagen());
+        valores.put(COL_IMAGENES_DESCRIPCION,iaImagen.getDescripcion());
+        valores.put(COL_IMAGENES_URL,iaImagen.getUrl());
 
-        error = db.insert(DB_NAME_TABLE_IMAGENES,null,values);
+        error = db.insert(DB_NAME_TABLE_IMAGENES,null,valores);
 
         db.close();
 
@@ -122,5 +131,26 @@ public class SQLCliente extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
         }
         return imagenes;
+    }
+    public void updateImagen(IAImagen imagenMod){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues valores = new ContentValues();
+
+        valores.put(COL_IMAGENES_DESCRIPCION,imagenMod.getDescripcion());
+
+        String[] cod = new String[]{String.valueOf(imagenMod.getCodigo_Imagen())};
+
+        db.update(DB_NAME_TABLE_IMAGENES,valores,"CODIGO_IMAGEN = ?",cod);
+
+        db.close();
+    }
+    public void deleteImagen(IAImagen imagenDel){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String[] cod = new String[]{""+imagenDel.getCodigo_Imagen()};
+
+        int devolver = db.delete(DB_NAME_TABLE_IMAGENES,"CODIGO_IMAGEN = ?",cod);
+        Log.i(TAG, "deleteImagen: " + devolver);
+        db.close();
     }
 }

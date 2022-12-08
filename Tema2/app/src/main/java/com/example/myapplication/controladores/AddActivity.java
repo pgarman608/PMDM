@@ -30,6 +30,7 @@ import com.example.myapplication.modelos.IAImagen;
 import com.squareup.picasso.Picasso;
 
 import java.net.URL;
+import java.util.List;
 
 public class AddActivity extends AppCompatActivity {
 
@@ -63,20 +64,63 @@ public class AddActivity extends AppCompatActivity {
                 connectTask.execute();
             }
         });
+        String accion = getIntent().getAction();
         btGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                IAImagen imagenTemp = new IAImagen(LoginActivity.clienteLog.getNombre(),
-                        etNombre.getText().toString(),etDescripcion.getText().toString(),image);
-                SQLCliente db = new SQLCliente(AddActivity.this);
-                db.insertarImagen(imagenTemp);
-                Intent addImage = new Intent();
-                addImage.putExtra("result","add");
-                setResult(Activity.RESULT_OK,addImage);
-                finish();
+                if (!accion.equals("aniadir") && accion.equals("editar")){
+                    IAImagen imagenMod = new IAImagen();
+                    imagenMod.setCodigo_Imagen(Integer.parseInt(getIntent().getStringExtra("cod")));
+                    imagenMod.setDescripcion(etDescripcion.getText().toString());
+                    SQLCliente db = new SQLCliente(AddActivity.this);
+                    db.updateImagen(imagenMod);
+                    Intent modImage = new Intent();
+                    modImage.putExtra("result","mod");
+                    setResult(Activity.RESULT_OK,modImage);
+                    finish();
+                }else{
+                    IAImagen imagenTemp = new IAImagen(LoginActivity.clienteLog.getNombre(),
+                            etNombre.getText().toString(),etDescripcion.getText().toString(),image);
+                    SQLCliente db = new SQLCliente(AddActivity.this);
+                    db.insertarImagen(imagenTemp);
+                    Intent addImage = new Intent();
+                    addImage.putExtra("result","add");
+                    setResult(Activity.RESULT_OK,addImage);
+                    finish();
+                }
             }
         });
-        Log.i(TAG, "onCreate: ");
+        ;
+        if (!accion.equals("aniadir")) {
+            switch (accion) {
+                case "mostrar":
+                    btCrear.setVisibility(View.INVISIBLE);
+                    btGuardar.setVisibility(View.INVISIBLE);
+                    etDescripcion.setEnabled(false);
+                    etNombre.setEnabled(false);
+                    barra.setTitle(Html.fromHtml("<font color='#006ca0'>Mostrar Imagen</font>"));
+                    Log.i(TAG, "onCreate: "+ getIntent().getStringExtra("name"));
+                    etNombre.setText(getIntent().getStringExtra("name"));
+                    etDescripcion.setText(getIntent().getStringExtra("desc"));
+                    Picasso.get()
+                            .load(getIntent().getStringExtra("url"))
+                            .into(imageAdd);
+                case "editar":
+                    btCrear.setVisibility(View.INVISIBLE);
+                    btGuardar.setText("Modificar");
+                    etNombre.setEnabled(false);
+                    btGuardar.setEnabled(true);
+                    barra.setTitle(Html.fromHtml("<font color='#006ca0'>Editar Imagen</font>"));
+                    etNombre.setText(getIntent().getStringExtra("name"));
+                    etDescripcion.setText(getIntent().getStringExtra("desc"));
+                    Picasso.get()
+                            .load(getIntent().getStringExtra("url"))
+                            .into(imageAdd);
+                    break;
+                default:
+
+            }
+        }
     }
 
     @Override
@@ -89,7 +133,6 @@ public class AddActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.btnBack:
-                connectTask.cancel();
                 onBackPressed();
                 return true;
         }

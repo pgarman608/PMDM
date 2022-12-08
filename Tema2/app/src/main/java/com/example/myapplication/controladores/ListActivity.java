@@ -37,10 +37,10 @@ public class ListActivity extends AppCompatActivity {
     private ReciclerAdapterImag imageHolder;
 
     private ArrayList<IAImagen> imagenes;
-
+    public static final int SEE = 0;
     public static final int ADD = 1;
     public static final int MOD = 2;
-
+    public static IAImagen iaSelect;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +69,8 @@ public class ListActivity extends AppCompatActivity {
         imageHolder.setClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int select = recyclerView.getChildAdapterPosition(view);
+                iaSelect = imagenes.get(select);
                 registerForContextMenu(view);
             }
         });
@@ -97,12 +99,44 @@ public class ListActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+        switch (itemId){
+            case R.id.btnVer:
+                Intent intent2 = new Intent(ListActivity.this,AddActivity.class);
+                intent2.putExtra("name",iaSelect.getNombre_Imagen());
+                intent2.putExtra("desc",iaSelect.getDescripcion());
+                intent2.putExtra("url",iaSelect.getUrl());
+                intent2.setAction("mostrar");
+                startActivityForResult(intent2,SEE);
+                break;
+            case R.id.btnMod:
+                Intent intent3 = new Intent(ListActivity.this,AddActivity.class);
+                intent3.putExtra("cod",""+iaSelect.getCodigo_Imagen());
+                intent3.putExtra("name",iaSelect.getNombre_Imagen());
+                intent3.putExtra("desc",iaSelect.getDescripcion());
+                intent3.putExtra("url",iaSelect.getUrl());
+                intent3.setAction("editar");
+                startActivityForResult(intent3,MOD);
+                break;
+            case R.id.btnDel:
+                SQLCliente db = new SQLCliente(ListActivity.this);
+                Log.i(TAG, "onContextItemSelected: " + iaSelect.getCodigo_Imagen());
+                db.deleteImagen(iaSelect);
+                actualizarRV();
+                break;
+        }
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
         switch (itemId){
             case R.id.btnMenuAdd:
-                Intent intent = new Intent(ListActivity.this,AddActivity.class);
-                startActivityForResult(intent,ADD);
+                Intent intent1 = new Intent(ListActivity.this,AddActivity.class);
+                intent1.setAction("aniadir");
+                startActivityForResult(intent1,ADD);
                 break;
         }
         return true;
@@ -111,10 +145,18 @@ public class ListActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == ADD){
-            rellenarArray();
-            imageHolder.setImagenes(imagenes);
-            recyclerView.setAdapter(imageHolder);
+        if(requestCode == ADD || requestCode == MOD){
+            actualizarRV();
+        }
+    }
+    private void actualizarRV(){
+        rellenarArray();
+        imageHolder.setImagenes(imagenes);
+        recyclerView.setAdapter(imageHolder);
+        if (imagenes.size() > 0){
+            tvVacio.setText("");
+        }else{
+            tvVacio.setText("No hay Imagenes");
         }
     }
 }

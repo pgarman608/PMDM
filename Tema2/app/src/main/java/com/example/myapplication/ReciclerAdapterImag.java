@@ -14,6 +14,8 @@ import com.example.myapplication.modelos.IAImagen;
 
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class ReciclerAdapterImag extends RecyclerView.Adapter<ReciclerAdapterImag.ImageHolder> {
@@ -54,7 +56,9 @@ public class ReciclerAdapterImag extends RecyclerView.Adapter<ReciclerAdapterIma
     @Override
     public void onBindViewHolder(@NonNull ImageHolder holder, int position) {
         IAImagen iaImagen = imagenes.get(position);
-        Glide.with(view)
+        int codigo = imagenes.get(position).getCodigo_Imagen();
+
+        Picasso.get()
                 .load(iaImagen.getUrl())
                 .placeholder(R.drawable.iascene)
                 .error(R.mipmap.ic_launcher)
@@ -69,9 +73,10 @@ public class ReciclerAdapterImag extends RecyclerView.Adapter<ReciclerAdapterIma
 
     public class ImageHolder extends RecyclerView.ViewHolder {
         ImageView iaImagen;
-
+        int codigo;
         public ImageHolder(@NonNull View itemView) {
             super(itemView);
+            codigo = 0;
             iaImagen = (ImageView) itemView.findViewById(R.id.ivItem);
         }
     }
