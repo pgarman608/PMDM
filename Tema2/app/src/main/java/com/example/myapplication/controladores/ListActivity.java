@@ -2,13 +2,10 @@ package com.example.myapplication.controladores;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -25,7 +22,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.ReciclerAdapterImag;
+import com.example.myapplication.modelos.ReciclerAdapterImag;
 import com.example.myapplication.modelos.IAImagen;
 
 import java.util.ArrayList;
@@ -35,6 +32,8 @@ public class ListActivity extends AppCompatActivity {
     private TextView tvVacio;
 
     private ReciclerAdapterImag imageHolder;
+
+    private SQLCliente sqlCliente;
 
     private ArrayList<IAImagen> imagenes;
     public static final int SEE = 0;
@@ -80,7 +79,7 @@ public class ListActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                SQLCliente sqlCliente = new SQLCliente(ListActivity.this);
+                sqlCliente = new SQLCliente(ListActivity.this);
                 imagenes = sqlCliente.imagenesUsuario(LoginActivity.clienteLog.getNombre());
             }
         });
@@ -101,29 +100,31 @@ public class ListActivity extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
+        Intent intent = null;
         switch (itemId){
             case R.id.btnVer:
-                Intent intent2 = new Intent(ListActivity.this,AddActivity.class);
-                intent2.putExtra("name",iaSelect.getNombre_Imagen());
-                intent2.putExtra("desc",iaSelect.getDescripcion());
-                intent2.putExtra("url",iaSelect.getUrl());
-                intent2.setAction("mostrar");
-                startActivityForResult(intent2,SEE);
+                intent = new Intent(ListActivity.this,AddActivity.class);
+                intent.putExtra("name",iaSelect.getNombre_Imagen());
+                intent.putExtra("desc",iaSelect.getDescripcion());
+                intent.putExtra("url",iaSelect.getUrl());
+                intent.setAction("mostrar");
+                startActivityForResult(intent,SEE);
                 break;
             case R.id.btnMod:
-                Intent intent3 = new Intent(ListActivity.this,AddActivity.class);
-                intent3.putExtra("cod",""+iaSelect.getCodigo_Imagen());
-                intent3.putExtra("name",iaSelect.getNombre_Imagen());
-                intent3.putExtra("desc",iaSelect.getDescripcion());
-                intent3.putExtra("url",iaSelect.getUrl());
-                intent3.setAction("editar");
-                startActivityForResult(intent3,MOD);
+                intent = new Intent(ListActivity.this,AddActivity.class);
+                intent.putExtra("cod",""+iaSelect.getCodigo_Imagen());
+                intent.putExtra("name",iaSelect.getNombre_Imagen());
+                intent.putExtra("desc",iaSelect.getDescripcion());
+                intent.putExtra("url",iaSelect.getUrl());
+                intent.setAction("editar");
+                startActivityForResult(intent,MOD);
                 break;
             case R.id.btnDel:
                 SQLCliente db = new SQLCliente(ListActivity.this);
                 Log.i(TAG, "onContextItemSelected: " + iaSelect.getCodigo_Imagen());
-                db.deleteImagen(iaSelect);
-                actualizarRV();
+                if (db.deleteImagen(iaSelect) != 0){
+                    actualizarRV();
+                }
                 break;
         }
         return true;
@@ -132,11 +133,16 @@ public class ListActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int itemId = item.getItemId();
+        Intent intent=null;
         switch (itemId){
             case R.id.btnMenuAdd:
-                Intent intent1 = new Intent(ListActivity.this,AddActivity.class);
-                intent1.setAction("aniadir");
-                startActivityForResult(intent1,ADD);
+                intent = new Intent(ListActivity.this,AddActivity.class);
+                intent.setAction("aniadir");
+                startActivityForResult(intent,ADD);
+                break;
+            case R.id.btnMenuPreferencias:
+                intent = new Intent(ListActivity.this,ConfigActivity.class);
+                startActivity(intent);
                 break;
         }
         return true;
@@ -151,6 +157,7 @@ public class ListActivity extends AppCompatActivity {
     }
     private void actualizarRV(){
         rellenarArray();
+        IAImagen.setCodigos(sqlCliente.setcodigos(LoginActivity.clienteLog.getNombre()));
         imageHolder.setImagenes(imagenes);
         recyclerView.setAdapter(imageHolder);
         if (imagenes.size() > 0){

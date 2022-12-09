@@ -1,7 +1,5 @@
-package com.example.myapplication;
+package com.example.myapplication.modelos;
 
-import android.app.Activity;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +8,10 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.modelos.IAImagen;
+import com.example.myapplication.R;
 
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
-import com.bumptech.glide.Glide;
+
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

@@ -120,13 +120,20 @@ public class SQLCliente extends SQLiteOpenHelper {
     public ArrayList<IAImagen> imagenesUsuario(String nombre){
         ArrayList<IAImagen> imagenes = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] columnas = new String[]{COL_IMAGENES_NOMBRE,COL_IMAGENES_DESCRIPCION,COL_IMAGENES_URL};
+        String[] columnas = new String[]{COL_IMAGENES_CODIGO_IMAGEN,COL_IMAGENES_NOMBRE,COL_IMAGENES_DESCRIPCION,COL_IMAGENES_URL};
         String[] where = new String[]{nombre};
 
         Cursor cursor = db.query(DB_NAME_TABLE_IMAGENES,columnas,"NOMBRE_CLIENTE = ? ",where,null,null,null,null);
         if (cursor.moveToNext()){
+            int cod = 0;
             do {
-                IAImagen iaImagen = new IAImagen("Cliente",cursor.getString(0),cursor.getString(1),cursor.getString(2));
+                cod++;
+                IAImagen iaImagen = new IAImagen();
+                iaImagen.setNombre_Cliente(nombre);
+                iaImagen.setCodigo_Imagen(Integer.parseInt(cursor.getString(0)));
+                iaImagen.setNombre_Imagen(cursor.getString(1));
+                iaImagen.setDescripcion(cursor.getString(2));
+                iaImagen.setUrl(cursor.getString(3));
                 imagenes.add(iaImagen);
             }while (cursor.moveToNext());
         }
@@ -144,13 +151,34 @@ public class SQLCliente extends SQLiteOpenHelper {
 
         db.close();
     }
-    public void deleteImagen(IAImagen imagenDel){
+    public long deleteImagen(IAImagen imagenDel){
+        long error;
         SQLiteDatabase db = this.getWritableDatabase();
 
         String[] cod = new String[]{""+imagenDel.getCodigo_Imagen()};
 
-        int devolver = db.delete(DB_NAME_TABLE_IMAGENES,"CODIGO_IMAGEN = ?",cod);
-        Log.i(TAG, "deleteImagen: " + devolver);
+        error = db.delete(DB_NAME_TABLE_IMAGENES,"CODIGO_IMAGEN = ?",cod);
+        Log.i(TAG, "deleteImagen: " + error);
         db.close();
+        return  error;
+    }
+
+    public int setcodigos(String nombre){
+        int codigoMax = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columnas = new String[]{COL_IMAGENES_CODIGO_IMAGEN};
+        String[] where = new String[]{nombre};
+
+        Cursor cursor = db.query(DB_NAME_TABLE_IMAGENES,columnas,"NOMBRE_CLIENTE = ? ",where,null,null,null,null);
+
+        if (cursor.moveToFirst()){
+            do {
+                int codigoTemp = Integer.parseInt(cursor.getString(0));
+                if (codigoTemp > codigoMax){
+                    codigoMax = codigoTemp;
+                }
+            }while (cursor.moveToNext());
+        }
+        return codigoMax;
     }
 }

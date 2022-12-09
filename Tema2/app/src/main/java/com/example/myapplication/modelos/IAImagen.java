@@ -13,6 +13,9 @@ public class IAImagen {
     public IAImagen(){
 
     }
+    public static void setCodigos(int codigos){
+        CODIGOS = codigos;
+    }
 
     public int getCodigo_Imagen() {
         return codigo_Imagen;

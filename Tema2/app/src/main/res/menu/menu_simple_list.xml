@@ -7,6 +7,6 @@
         android:title="Item"
         app:showAsAction="always" />
     <item
-        android:id="@+id/BtnMenuPreferencias"
+        android:id="@+id/btnMenuPreferencias"
         android:title="Preferencias" />
 </menu>
