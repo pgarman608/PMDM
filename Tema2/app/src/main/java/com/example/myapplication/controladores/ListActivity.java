@@ -3,6 +3,7 @@ package com.example.myapplication.controladores;
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -12,12 +13,14 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,6 +43,7 @@ public class ListActivity extends AppCompatActivity {
     public static final int ADD = 1;
     public static final int MOD = 2;
     public static IAImagen iaSelect;
+    private GridLayoutManager matrizlayout;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,8 +64,9 @@ public class ListActivity extends AppCompatActivity {
         if (imagenes.size() > 0){
             tvVacio.setText("");
         }
+        int col = loadPreferences();
+        matrizlayout= new GridLayoutManager(this,col);
 
-        GridLayoutManager matrizlayout = new GridLayoutManager(this,3);
         recyclerView.setLayoutManager(matrizlayout);
         recyclerView.setAdapter(imageHolder);
 
@@ -165,5 +170,18 @@ public class ListActivity extends AppCompatActivity {
         }else{
             tvVacio.setText("No hay Imagenes");
         }
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int col = loadPreferences();
+        matrizlayout = new GridLayoutManager(this,col);
+        recyclerView.setLayoutManager(matrizlayout);
+
+    }
+    private int loadPreferences(){
+        SharedPreferences config = PreferenceManager.getDefaultSharedPreferences(this);
+        int col = Integer.parseInt(config.getString("numCol","3"));
+        return col;
     }
 }

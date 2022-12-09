@@ -6,12 +6,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
+import com.example.myapplication.controladores.AddActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -35,6 +38,8 @@ public class ReciclerAdapterImag extends RecyclerView.Adapter<ReciclerAdapterIma
         this.imagenes = imagenes;
     }
 
+    private CircularProgressDrawable progressBar;
+
     public ReciclerAdapterImag(List<IAImagen> imagenes){
         this.imagenes = imagenes;
     }
@@ -45,7 +50,6 @@ public class ReciclerAdapterImag extends RecyclerView.Adapter<ReciclerAdapterIma
         ImageHolder imageHolder = new ImageHolder(view);
 
         //Circulo de carga
-
         view.setOnClickListener(clickListener);
 
         return imageHolder;
@@ -56,10 +60,16 @@ public class ReciclerAdapterImag extends RecyclerView.Adapter<ReciclerAdapterIma
         IAImagen iaImagen = imagenes.get(position);
         int codigo = imagenes.get(position).getCodigo_Imagen();
 
-        Picasso.get()
+        progressBar = new CircularProgressDrawable(view.getContext());
+        progressBar.setStrokeWidth(10f);
+        progressBar.setStyle(CircularProgressDrawable.LARGE);
+        progressBar.setCenterRadius(30f);
+        progressBar.start();
+
+        Glide.with(view)
                 .load(iaImagen.getUrl())
-                .placeholder(R.drawable.iascene)
-                .error(R.mipmap.ic_launcher)
+                .placeholder(progressBar)
+                .error(R.drawable.error404)
                 .into(holder.iaImagen);
     }
 
@@ -71,10 +81,8 @@ public class ReciclerAdapterImag extends RecyclerView.Adapter<ReciclerAdapterIma
 
     public class ImageHolder extends RecyclerView.ViewHolder {
         ImageView iaImagen;
-        int codigo;
         public ImageHolder(@NonNull View itemView) {
             super(itemView);
-            codigo = 0;
             iaImagen = (ImageView) itemView.findViewById(R.id.ivItem);
         }
     }

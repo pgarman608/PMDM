@@ -5,6 +5,7 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
@@ -23,7 +24,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 
+import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.modelos.ApiCNTRL;
 import com.example.myapplication.modelos.IAImagen;
@@ -42,6 +46,8 @@ public class AddActivity extends AppCompatActivity {
     private ImageView imageAdd;
 
     private String image;
+
+    private CircularProgressDrawable progressbar;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +59,8 @@ public class AddActivity extends AppCompatActivity {
         getWindow().setNavigationBarColor(Color.parseColor("#FCC2FC"));
         btCrear = (Button) findViewById(R.id.btnCrear);
         btGuardar = (Button) findViewById(R.id.btnAniadir);
-        btGuardar.setEnabled(false);
+        btGuardar.setVisibility(View.INVISIBLE);
+
         etNombre = (EditText) findViewById(R.id.etNombre);
         etDescripcion = (EditText) findViewById(R.id.etDescripcion);
         imageAdd = (ImageView) findViewById(R.id.imgAdd);
@@ -90,7 +97,11 @@ public class AddActivity extends AppCompatActivity {
                 }
             }
         });
-        ;
+        progressbar = new CircularProgressDrawable(this);
+        progressbar.setStrokeWidth(10f);
+        progressbar.setStyle(CircularProgressDrawable.LARGE);
+        progressbar.setCenterRadius(30f);
+        progressbar.start();
         if (!accion.equals("aniadir")) {
             switch (accion) {
                 case "mostrar":
@@ -102,8 +113,10 @@ public class AddActivity extends AppCompatActivity {
                     Log.i(TAG, "onCreate: "+ getIntent().getStringExtra("name"));
                     etNombre.setText(getIntent().getStringExtra("name"));
                     etDescripcion.setText(getIntent().getStringExtra("desc"));
-                    Picasso.get()
+                    Glide.with(AddActivity.this)
                             .load(getIntent().getStringExtra("url"))
+                            .placeholder(progressbar)
+                            .error(R.drawable.error404)
                             .into(imageAdd);
                 case "editar":
                     btCrear.setVisibility(View.INVISIBLE);
@@ -113,8 +126,10 @@ public class AddActivity extends AppCompatActivity {
                     barra.setTitle(Html.fromHtml("<font color='#006ca0'>Editar Imagen</font>"));
                     etNombre.setText(getIntent().getStringExtra("name"));
                     etDescripcion.setText(getIntent().getStringExtra("desc"));
-                    Picasso.get()
+                    Glide.with(AddActivity.this)
                             .load(getIntent().getStringExtra("url"))
+                            .placeholder(progressbar)
+                            .error(R.drawable.error404)
                             .into(imageAdd);
                     break;
                 default:
@@ -141,8 +156,8 @@ public class AddActivity extends AppCompatActivity {
     private class ConnectTask extends AsyncTask<Void, String, String> {
         @Override
         protected void onPreExecute() {
-            btCrear.setEnabled(false);
-            etNombre.setEnabled(false);
+            btCrear.setVisibility(View.INVISIBLE);
+            etNombre.setVisibility(View.INVISIBLE);
             etDescripcion.setEnabled(false);
         }
 
@@ -156,13 +171,18 @@ public class AddActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             String url = ApiCNTRL.getURLImage(s);
-            Picasso.get().load(url).into(imageAdd);
+            Glide.with(AddActivity.this)
+                    .load(url)
+                    .placeholder(progressbar)
+                    .error(R.drawable.error404)
+                    .into(imageAdd);
             image = url;
             etDescripcion.setEnabled(true);
-            btGuardar.setEnabled(true);
+            btGuardar.setVisibility(View.VISIBLE);
         }
 
         public void cancel() {
         }
     }
+
 }
