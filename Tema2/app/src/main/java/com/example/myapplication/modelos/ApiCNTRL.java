@@ -20,20 +20,27 @@ import java.util.Scanner;
 import java.util.zip.GZIPInputStream;
 
 public class ApiCNTRL {
-    private static String URL_BASE = "https://lexica.art/api/v1/search?=";
-    private static String KEY = "1c61f71df4bc98f9734734e2583cc8ca147e3b01";
-    private JSONArray arrayjson;
-    private HttpURLConnection httpurl;
+    //URL que siempre vamos a usar para haceder a la base de datos
+    private static String URL_BASE = "https://lexica.art/api/v1/search?q=";
 
     public static String generarPrediccion(String msg){
+        //Contenido del json en String
         String content=null;
+        //Connector con base de datos mediante http (REST)
         HttpURLConnection httpConn = null;
         try {
-            URL url = new URL("https://lexica.art/api/v1/search?q=" + msg);
+            //Generaremos la url
+            URL url = new URL(URL_BASE + msg);
+            //Crearemos la conexion con la base de datos
             httpConn = (HttpURLConnection) url.openConnection();
+            //Recogeremos la informacion json de la url como output
             httpConn.setDoOutput(true);
             httpConn.setRequestProperty("Content-Type", "application/json");
             httpConn.setRequestProperty("Accept", "application/json");
+            /**
+             * Si la conexion a sido correcta guardaremos en el content el contenido json
+             * a un string
+             */
             if (httpConn.getResponseCode() == HttpURLConnection.HTTP_OK){
                 StringBuilder sb = new StringBuilder();
                 BufferedReader reader = new BufferedReader(
@@ -45,14 +52,20 @@ public class ApiCNTRL {
                 content = sb.toString();
                 reader.close();
             }
-            Log.i(TAG, "Termina");
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
+            //Cerraremos la conexion con la base de datos externa
             if( httpConn != null ) httpConn.disconnect();
         }
         return content;
     }
+
+    /**
+     * Cogeremos siempre la primera imagen del json generado en el metodo anterior
+     * @param JSON El json con todas las imagenes de la base de datos
+     * @return La url de la imagen
+     */
     public static String getURLImage(String JSON){
         String url=null;
         try {
