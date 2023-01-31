@@ -1,10 +1,15 @@
-package Screen;
+package screen;
 
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mygdx.game.MainGame;
 
 public class BasicScreen implements Screen {
 
+    protected MainGame mainGame;
+
+    public BasicScreen(MainGame mainGame){
+        this.mainGame = mainGame;
+    }
     @Override
     public void show() {
 

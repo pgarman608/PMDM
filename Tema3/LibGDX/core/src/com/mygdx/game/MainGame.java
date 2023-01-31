@@ -1,18 +1,20 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 
-import Screen.GameScreen;
+import extras.AssetMan;
+import screen.GameScreen;
 
 /**
- * TODO 1: Tendremos los
+ * TODO : TENDREMOS LA PANTALLA PRINCIPAL CON LOS ASSETS ASIGNADOS
  */
 public class MainGame extends Game {
     protected GameScreen gameScreen;
+    public AssetMan assetManager;
     @Override
     public void create() {
-        gameScreen = new GameScreen();
+        this.assetManager = new AssetMan();
+        gameScreen = new GameScreen(this);
         setScreen(gameScreen);
     }
 }

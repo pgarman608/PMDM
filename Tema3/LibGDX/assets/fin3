@@ -1,0 +1,62 @@
+
+fin3.png
+size: 550, 1038
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+columna1
+  rotate: false
+  xy: 484, 636
+  size: 64, 400
+  orig: 64, 400
+  offset: 0, 0
+  index: -1
+columna2
+  rotate: false
+  xy: 484, 234
+  size: 64, 400
+  orig: 64, 400
+  offset: 0, 0
+  index: -1
+finalpx2
+  rotate: false
+  xy: 2, 236
+  size: 480, 800
+  orig: 480, 800
+  offset: 0, 0
+  index: -1
+sprite_dw
+  rotate: false
+  xy: 2, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+sprite_sb
+  rotate: false
+  xy: 68, 68
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+sprite_up
+  rotate: false
+  xy: 484, 168
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 1
+sprite_ups
+  rotate: false
+  xy: 2, 68
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+suelopx1
+  rotate: false
+  xy: 2, 134
+  size: 480, 100
+  orig: 480, 100
+  offset: 0, 0
+  index: -1
