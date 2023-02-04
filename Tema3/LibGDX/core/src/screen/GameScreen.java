@@ -1,6 +1,8 @@
 package screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -36,6 +38,8 @@ public class GameScreen extends BasicScreen {
     private Box2DDebugRenderer debugRenderer;
     private OrthographicCamera ortCamera;
 
+    private Music musicaBG;
+
     public GameScreen(MainGame mainGame){
         super(mainGame);
 
@@ -54,7 +58,7 @@ public class GameScreen extends BasicScreen {
     }
     public void addBird(){
         Animation<TextureRegion> birdSprite = mainGame.assetManager.getBirdAnimation();
-        this.bird = new Bird(this.world,birdSprite, new Vector2(1f,4f));
+        this.bird = new Bird(this.world,birdSprite, new Vector2(1f,4f),mainGame.assetManager.getSonido_pajaro1());
         this.stage.addActor(this.bird);
     }
     public void addSueloTecho(){
@@ -79,6 +83,7 @@ public class GameScreen extends BasicScreen {
 
         this.debugRenderer.render(this.world, this.ortCamera.combined);
 
+
     }
     @Override
     public void show() {
@@ -86,6 +91,10 @@ public class GameScreen extends BasicScreen {
         addBird();
         addPipes();
         addSueloTecho();
+
+        musicaBG = mainGame.assetManager.getMusica_bg();
+        musicaBG.setLooping(true);
+        musicaBG.play();
     }
 
     @Override
@@ -99,6 +108,8 @@ public class GameScreen extends BasicScreen {
         this.suelo.remove();
         this.techo.remove();
         this.pipes.remove();
+
+        this.musicaBG.stop();
     }
 
     @Override
@@ -106,5 +117,7 @@ public class GameScreen extends BasicScreen {
 
         this.stage.dispose();
         this.world.dispose();
+
+        this.musicaBG.stop();
     }
 }

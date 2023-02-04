@@ -1,6 +1,7 @@
 package actores;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,6 +12,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+
+import org.graalvm.compiler.core.common.util.Util;
 
 import extras.Utils;
 
@@ -31,14 +34,18 @@ public class Bird extends Actor {
 
     private int estado;
 
-    public Bird(World world, Animation<TextureRegion> animation, Vector2 pos){
+    private Sound sonidoSalto;
+
+    public Bird(World world, Animation<TextureRegion> animation, Vector2 pos,Sound sonidoSalto){
         this.animation = animation;
         this.pos = pos;
         this.world = world;
         
         this.stateTime = 0f;
         estado = STATE_LIVE;
-        
+
+        this.sonidoSalto = sonidoSalto;
+
         createBody();
         createFixture();
     }
@@ -67,6 +74,7 @@ public class Bird extends Actor {
     public void act(float delta) {
         boolean jump = Gdx.input.justTouched();
         if ( jump && estado == STATE_LIVE){
+            sonidoSalto.play();
             this.body.setLinearVelocity(0,JUMP_SPEED);
         }
     }

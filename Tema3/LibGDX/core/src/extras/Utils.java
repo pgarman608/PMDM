@@ -20,7 +20,8 @@ public class Utils {
     public static final String COLUMN1 = "columna1";
     public static final String COLUMN2 = "columna2";
     public static final String SUELO = "suelopx1";
-
+    public static final String SD_FENIX1 = "sonido_aguila1.mp3";
+    public static final String MC_BG1 = "Fi_s_Gratitude_Theme.m4a";
     //Identificador de cuerpos
 
     public static final String DATA_BIRD = "bird";
