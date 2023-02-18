@@ -1,0 +1,272 @@
+
+jeatlas.png
+size: 1448, 1606
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+corazon
+  rotate: false
+  xy: 1164, 474
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixAzul00
+  rotate: false
+  xy: 1164, 738
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixAzul01
+  rotate: false
+  xy: 1098, 408
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixAzul02
+  rotate: false
+  xy: 1164, 606
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixAzul03
+  rotate: false
+  xy: 1032, 672
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixAzul04
+  rotate: false
+  xy: 1230, 606
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixAzul05
+  rotate: false
+  xy: 1164, 672
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixAzul06
+  rotate: false
+  xy: 966, 672
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixAzul07
+  rotate: false
+  xy: 1032, 408
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixAzul08
+  rotate: false
+  xy: 1098, 672
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixAzul09
+  rotate: false
+  xy: 966, 276
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixHut
+  rotate: false
+  xy: 1230, 738
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixNaranja00
+  rotate: false
+  xy: 966, 342
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixNaranja01
+  rotate: false
+  xy: 1032, 606
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixNaranja02
+  rotate: false
+  xy: 1362, 738
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixNaranja03
+  rotate: false
+  xy: 1032, 474
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixNaranja04
+  rotate: false
+  xy: 1032, 738
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixNaranja05
+  rotate: false
+  xy: 1098, 474
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixNaranja06
+  rotate: false
+  xy: 1032, 540
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixNaranja07
+  rotate: false
+  xy: 1230, 540
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixNaranja08
+  rotate: false
+  xy: 1230, 672
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixNaranja09
+  rotate: false
+  xy: 1098, 738
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixRosa00
+  rotate: false
+  xy: 1032, 342
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixRosa01
+  rotate: false
+  xy: 1098, 540
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixRosa02
+  rotate: false
+  xy: 966, 606
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixRosa03
+  rotate: false
+  xy: 1164, 540
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixRosa04
+  rotate: false
+  xy: 1098, 606
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixRosa05
+  rotate: false
+  xy: 966, 738
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixRosa06
+  rotate: false
+  xy: 1296, 738
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixRosa07
+  rotate: false
+  xy: 966, 540
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixRosa08
+  rotate: false
+  xy: 1296, 672
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+fenixRosa09
+  rotate: false
+  xy: 966, 408
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+gameover2
+  rotate: false
+  xy: 2, 804
+  size: 480, 800
+  orig: 480, 800
+  offset: 0, 0
+  index: -1
+playgame
+  rotate: false
+  xy: 966, 804
+  size: 480, 800
+  orig: 480, 800
+  offset: 0, 0
+  index: -1
+puntero1
+  rotate: false
+  xy: 966, 474
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+startgame
+  rotate: false
+  xy: 2, 2
+  size: 480, 800
+  orig: 480, 800
+  offset: 0, 0
+  index: -1
+tutorial
+  rotate: false
+  xy: 484, 2
+  size: 480, 800
+  orig: 480, 800
+  offset: 0, 0
+  index: -1
+wining
+  rotate: false
+  xy: 484, 804
+  size: 480, 800
+  orig: 480, 800
+  offset: 0, 0
+  index: -1
