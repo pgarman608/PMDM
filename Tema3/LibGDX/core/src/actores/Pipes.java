@@ -55,7 +55,9 @@ public class Pipes extends Actor {
         createCont();
     }
 
-
+    public boolean isOutOfScreen(){
+        return this.bodyPI.getPosition().x <= -2f;
+    }
 
     private void createBodyPI() {
         BodyDef bodyDef = new BodyDef();

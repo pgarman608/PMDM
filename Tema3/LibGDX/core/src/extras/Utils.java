@@ -22,8 +22,10 @@ public class Utils {
     public static final String SUELO = "suelopx1";
     public static final String SD_FENIX1 = "sonido_aguila1.mp3";
     public static final String MC_BG1 = "Fi_s_Gratitude_Theme.m4a";
+    //Identificadores de las fuentes
+    public static final String FONT_FNT = "MediavalFont.fnt";
+    public static final String FONT_PNG = "MediavalFont.png";
     //Identificador de cuerpos
-
     public static final String DATA_BIRD = "bird";
     public static final String DATA_SUELO = "suelo";
     public static final String DATA_TECHO = "techo";

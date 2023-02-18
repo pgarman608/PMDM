@@ -28,9 +28,11 @@ public class Bird extends Actor {
     private Fixture fixture;
     private static final float JUMP_SPEED = 4.5f;
 
+
+
     //Estados del pajaro
-    private static final int STATE_LIVE = 1;
-    private static final int STATE_DEAD = -1;
+    public static final int STATE_LIVE = 1;
+    public static final int STATE_DEAD = -1;
 
     private int estado;
 
@@ -89,5 +91,13 @@ public class Bird extends Actor {
     public void detach(){
         this.body.destroyFixture(this.fixture);
         this.world.destroyBody(this.body);
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
     }
 }
