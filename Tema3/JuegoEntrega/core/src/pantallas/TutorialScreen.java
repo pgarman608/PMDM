@@ -16,20 +16,8 @@ import extras.Utils;
  * Esta Screen se mostrará desues de la StartSceen
  */
 public class TutorialScreen extends BasicScreen{
-    //El escenario, el mundo, la camara y el fondo del screen
-    private Stage stage;
-    private World world;
-    private OrthographicCamera orthographicCamera;
-    private Image background;
     public TutorialScreen(MainGame mainGame) {
         super(mainGame);
-        //Crearemos el mundo con un vector
-        this.world = new World(new Vector2(0, -10), true);
-        //Crearemos un fitviewport para tener una forma de escalar sin tener encuenta los pixeles de la pantalla
-        FitViewport fitViewport = new FitViewport((Utils.WORLD_WIDTH * 0.84f), (Utils.WORLD_HEIGHT * 1.1f));
-        this.stage = new Stage(fitViewport);
-        //Crearemos la camara desde el escenario
-        this.orthographicCamera = (OrthographicCamera) this.stage.getCamera();
     }
 
     /**

@@ -35,11 +35,6 @@ import extras.Utils;
  */
 
 public class PlayScreen extends BasicScreen implements ContactListener{
-    //El escenario, el mundo, la camara y el fondo del screen
-    protected Stage stage;
-    protected World world;
-    protected OrthographicCamera orthographicCamera;
-    protected Image background;
     //La imagen de las vidas
     private Image heart;
     //La imagen del fenix cazado
@@ -60,13 +55,6 @@ public class PlayScreen extends BasicScreen implements ContactListener{
 
     public PlayScreen(MainGame mainGame) {
         super(mainGame);
-        //Crearemos el mundo con un vector
-        this.world = new World(new Vector2(0, -10), true);
-        //Crearemos un fitviewport para tener una forma de escalar sin tener encuenta los pixeles de la pantalla
-        FitViewport fitViewport = new FitViewport((Utils.WORLD_WIDTH * 0.84f), (Utils.WORLD_HEIGHT * 1.1f));
-        this.stage = new Stage(fitViewport);
-        //Crearemos la camara desde el escenario
-        this.orthographicCamera = (OrthographicCamera) this.stage.getCamera();
         this.world.setContactListener(this);
 
         this.birds = new Array<>();
@@ -112,7 +100,7 @@ public class PlayScreen extends BasicScreen implements ContactListener{
     }
 
     /**
-     *
+     * Este método añade al escenario la mira cuando toquemos por primera vez la pantalla
      */
     private void addGunSight(){
         if (Gdx.input.isTouched() && gunSight == null) {
@@ -131,10 +119,14 @@ public class PlayScreen extends BasicScreen implements ContactListener{
      * @param delta
      */
     public void addBirds(float delta){
+        //Vamos sumando y guardando delta en una variable de clase
         this.deltaBirds += delta;
+        //Si es mayor o igual a 0.85 le restaremos ese mismo tiempo
         if (this.deltaBirds >= 0.85f) {
             this.deltaBirds -= 0.85f;
+            //Calcularemos la posicion donde sale el fenix
             Vector2 xybird = getxyBird();
+            //Saquaremos un numero entre el 1 al 10 para saber que fenix va a salir
             int rnd = MathUtils.random(1,10);
             if (rnd <=5){
                 OranjePhoenix FNAux = new OranjePhoenix(world,

@@ -12,6 +12,11 @@ import com.mygdx.game.MainGame;
 import extras.Utils;
 
 public class BasicScreen implements Screen {
+    //El escenario, el mundo, la camara y el fondo del screen
+    protected OrthographicCamera orthographicCamera;
+    protected Stage stage;
+    protected World world;
+    protected Image background;
     //Tendremos un int estático que guardará los puntos del jugador conseguidos
     protected static int points;
     //Tendremos un objeto que guarde el MainGame donde estemos jugando
@@ -22,6 +27,13 @@ public class BasicScreen implements Screen {
      */
     public BasicScreen(MainGame mainGame) {
         this.mainGame = mainGame;
+        //Crearemos el mundo con un vector
+        this.world = new World(new Vector2(0, -10), true);
+        //Crearemos un fitviewport para tener una forma de escalar sin tener encuenta los pixeles de la pantalla
+        FitViewport fitViewport = new FitViewport((Utils.WORLD_WIDTH * 0.84f), (Utils.WORLD_HEIGHT * 1.1f));
+        this.stage = new Stage(fitViewport);
+        //Crearemos la camara desde el escenario
+        this.orthographicCamera = (OrthographicCamera) this.stage.getCamera();
     }
 
     /**
@@ -61,7 +73,6 @@ public class BasicScreen implements Screen {
     public void dispose() {
 
     }
-
 
     //Getter del maingame
     public MainGame getMainGame() {
